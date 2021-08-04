@@ -1,6 +1,7 @@
 class Thermostat {
   constructor() {
     this._temperature = 20;
+    this._MINIMUM_TEMPERATURE = 10;
   }
 
   temperature() {
@@ -8,10 +9,24 @@ class Thermostat {
   };
 
   up() {
-    if(this._temperature < 25) this._temperature += 1;
+    if(this._isBelowMaximum()) this._temperature += 1;
   };
 
   down() {
-    if(this._temperature > 10) this._temperature -= 1;
+    if(this._isBelowMinimum()) this._temperature -= 1;
+  };
+
+  _isPowerSavingModeOn() {};
+
+  _isBelowMinimum() {
+    return this._temperature > this._MINIMUM_TEMPERATURE
+  };
+
+  _isBelowMaximum() {
+    if(this._isPowerSavingModeOn()) {
+      return this._temperature < 25
+    } else {
+      return this._temperature < 32
+    };
   };
 };
