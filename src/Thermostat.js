@@ -12,6 +12,6 @@ class Thermostat {
   };
 
   down() {
-    this._temperature -= 1
+    if(this._temperature > 10) this._temperature -= 1;
   };
 };

@@ -20,4 +20,9 @@ describe("Thermostat", () => {
     thermostat.down();
     expect(thermostat.temperature()).toEqual(19)
   });
+
+  it("cannot go below 10 degrees", () => {
+    for(let i = 0; i < 11; i++) thermostat.down();
+    expect(thermostat.temperature()).toEqual(10)
+  });
 });
