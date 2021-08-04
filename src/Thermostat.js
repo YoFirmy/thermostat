@@ -8,7 +8,7 @@ class Thermostat {
   };
 
   up() {
-    this._temperature += 1;
+    if(this._temperature < 25) this._temperature += 1;
   };
 
   down() {
