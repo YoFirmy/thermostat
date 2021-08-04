@@ -16,7 +16,9 @@ class Thermostat {
     if(this._isBelowMinimum()) this._temperature -= 1;
   };
 
-  _isPowerSavingModeOn() {};
+  _isPowerSavingModeOn() {
+    return true;
+  };
 
   _isBelowMinimum() {
     return this._temperature > this._MINIMUM_TEMPERATURE

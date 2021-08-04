@@ -28,6 +28,10 @@ describe("Thermostat", () => {
     expect(thermostat.temperature()).toEqual(10)
   });
 
+  it("has power saving mode on by default", () => {
+    expect(thermostat._isPowerSavingModeOn()).toEqual(true)
+  });
+
   describe("when power saving mode is on", () => {
     beforeEach(() => {
       spyOn(thermostat, "_isPowerSavingModeOn").and.returnValue(true)
