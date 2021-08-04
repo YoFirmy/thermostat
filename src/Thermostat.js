@@ -2,6 +2,7 @@ class Thermostat {
   constructor() {
     this._temperature = 20;
     this._MINIMUM_TEMPERATURE = 10;
+    this._powerSavingModeOn = true;
   }
 
   temperature() {
@@ -16,8 +17,12 @@ class Thermostat {
     if(this._isBelowMinimum()) this._temperature -= 1;
   };
 
+  turnOffPowerSavingMode() {
+    this._powerSavingModeOn = false
+  };
+
   _isPowerSavingModeOn() {
-    return true;
+    return this._powerSavingModeOn
   };
 
   _isBelowMinimum() {

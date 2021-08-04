@@ -18,39 +18,44 @@ describe("Thermostat", () => {
 
   it("can decrease the temperature", () => {
     thermostat.down();
-    expect(thermostat.temperature()).toEqual(19)
+    expect(thermostat.temperature()).toEqual(19);
   });
 
   it("cannot go below 10 degrees", () => {
     for(let i = 0; i < 11; i++) {
       thermostat.down();
     };
-    expect(thermostat.temperature()).toEqual(10)
+    expect(thermostat.temperature()).toEqual(10);
   });
 
   it("has power saving mode on by default", () => {
-    expect(thermostat._isPowerSavingModeOn()).toEqual(true)
+    expect(thermostat._isPowerSavingModeOn()).toEqual(true);
+  });
+
+  it("can have power saving mode turned off", () => {
+    thermostat.turnOffPowerSavingMode();
+    expect(thermostat._isPowerSavingModeOn()).toEqual(false);
   });
 
   describe("when power saving mode is on", () => {
     beforeEach(() => {
-      spyOn(thermostat, "_isPowerSavingModeOn").and.returnValue(true)
+      spyOn(thermostat, "_isPowerSavingModeOn").and.returnValue(true);
     });
 
     it("cannot go above 25 degrees", () => {
       for(let i = 0; i < 6; i++) thermostat.up();
-      expect(thermostat.temperature()).toEqual(25)
+      expect(thermostat.temperature()).toEqual(25);
     });
   });
 
   describe("when power saving mode is off", () => {
     beforeEach(() => {
-      spyOn(thermostat, "_isPowerSavingModeOn").and.returnValue(false)
+      spyOn(thermostat, "_isPowerSavingModeOn").and.returnValue(false);
     });
 
     it("cannot go above 32 degrees", () => {
       for(let i = 0; i < 13; i++) thermostat.up();
-      expect(thermostat.temperature()).toEqual(32)
+      expect(thermostat.temperature()).toEqual(32);
     });
   });
 });
