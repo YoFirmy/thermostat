@@ -25,18 +25,18 @@ describe("Thermostat", () => {
   });
 
   it("has power saving mode on by default", () => {
-    expect(thermostat._isPowerSavingModeOn()).toEqual(true);
+    expect(thermostat.isPowerSavingModeOn).toEqual(true);
   });
 
   it("can have power saving mode turned off", () => {
     thermostat.turnOffPowerSavingMode();
-    expect(thermostat._isPowerSavingModeOn()).toEqual(false);
+    expect(thermostat.isPowerSavingModeOn).toEqual(false);
   });
 
   it("Can have power saving mode turned on", () => {
     thermostat.turnOffPowerSavingMode();
     thermostat.turnOnPowerSavingMode();
-    expect(thermostat._isPowerSavingModeOn()).toEqual(true);
+    expect(thermostat.isPowerSavingModeOn).toEqual(true);
   });
 
   it("can reduce temperature to 20 with a reset function", () => {
@@ -83,7 +83,7 @@ describe("Thermostat", () => {
 
   describe("when power saving mode is on", () => {
     beforeEach(() => {
-      spyOn(thermostat, "_isPowerSavingModeOn").and.returnValue(true);
+      spyOn(thermostat, "isPowerSavingModeOn").and.returnValue(true);
     });
 
     it("cannot go above 25 degrees", () => {
@@ -94,7 +94,7 @@ describe("Thermostat", () => {
 
   describe("when power saving mode is off", () => {
     beforeEach(() => {
-      spyOn(thermostat, "_isPowerSavingModeOn").and.returnValue(false);
+      thermostat.turnOffPowerSavingMode();
     });
 
     it("cannot go above 32 degrees", () => {
