@@ -9,19 +9,19 @@ describe("Thermostat", () => {
 
   it("can increase the temperature", () => {
     thermostat.up();
-    expect(thermostat.temperature()).toEqual(21)
+    expect(thermostat.temperature).toEqual(21)
   });
 
   it("can decrease the temperature", () => {
     thermostat.down();
-    expect(thermostat.temperature()).toEqual(19);
+    expect(thermostat.temperature).toEqual(19);
   });
 
   it("cannot go below 10 degrees", () => {
     for(let i = 0; i < 11; i++) {
       thermostat.down();
     };
-    expect(thermostat.temperature()).toEqual(10);
+    expect(thermostat.temperature).toEqual(10);
   });
 
   it("has power saving mode on by default", () => {
@@ -42,12 +42,12 @@ describe("Thermostat", () => {
   it("can reduce temperature to 20 with a reset function", () => {
     for(let i = 0; i < 3; i++) thermostat.up();
     thermostat.reset();
-    expect(thermostat.temperature()).toEqual(20)
+    expect(thermostat.temperature).toEqual(20)
   });
 
   describe("when at default temperature", () => {
     it("default temperature is 20 degrees", () => {
-      expect(thermostat.temperature()).toEqual(20)
+      expect(thermostat.temperature).toEqual(20)
     });
 
     it("reveals energry usage to be medium-usage", () => {
@@ -77,7 +77,7 @@ describe("Thermostat", () => {
 
     it("reduces temperature to maximum limit when power saving mode is turned on", () => {
       thermostat.turnOnPowerSavingMode();
-      expect(thermostat.temperature()).toEqual(25);
+      expect(thermostat.temperature).toEqual(25);
     });
   });
 
@@ -88,7 +88,7 @@ describe("Thermostat", () => {
 
     it("cannot go above 25 degrees", () => {
       for(let i = 0; i < 6; i++) thermostat.up();
-      expect(thermostat.temperature()).toEqual(25);
+      expect(thermostat.temperature).toEqual(25);
     });
   });
 
@@ -99,7 +99,7 @@ describe("Thermostat", () => {
 
     it("cannot go above 32 degrees", () => {
       for(let i = 0; i < 13; i++) thermostat.up();
-      expect(thermostat.temperature()).toEqual(32);
+      expect(thermostat.temperature).toEqual(32);
     });
   });
 });
