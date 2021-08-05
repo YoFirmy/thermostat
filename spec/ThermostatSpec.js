@@ -7,10 +7,6 @@ describe("Thermostat", () => {
     thermostat = new Thermostat();
   });
 
-  it("default temperature is 20 degrees", () => {
-    expect(thermostat.temperature()).toEqual(20)
-  });
-
   it("can increase the temperature", () => {
     thermostat.up();
     expect(thermostat.temperature()).toEqual(21)
@@ -43,17 +39,46 @@ describe("Thermostat", () => {
     expect(thermostat._isPowerSavingModeOn()).toEqual(true);
   });
 
-  it("reduces temperature to maximum limit when power saving mode is turned on and it is above", () => {
-    thermostat.turnOffPowerSavingMode();
-    for(let i = 0; i < 6; i++) thermostat.up();
-    thermostat.turnOnPowerSavingMode();
-    expect(thermostat.temperature()).toEqual(25);
-  });
-
   it("can reduce temperature to 20 with a reset function", () => {
     for(let i = 0; i < 3; i++) thermostat.up();
     thermostat.reset();
     expect(thermostat.temperature()).toEqual(20)
+  });
+
+  describe("when at default temperature", () => {
+    it("default temperature is 20 degrees", () => {
+      expect(thermostat.temperature()).toEqual(20)
+    });
+
+    it("reveals energry usage to be medium-usage", () => {
+      expect(thermostat.currentEnergyUsage()).toEqual("medium-usage")
+    });
+  });
+
+  describe("when temperature is below 18", () => {
+    beforeEach(() => {
+      for(let i = 0; i < 3; i++) thermostat.down();
+    });
+
+    it("reveals energy usage to be low-usage", () => {
+      expect(thermostat.currentEnergyUsage()).toEqual("low-usage")
+    });
+  });
+
+  describe("when temperature is above 25", () => {
+    beforeEach(() => {
+      thermostat.turnOffPowerSavingMode();
+      for(let i = 0; i < 6; i++) thermostat.up();
+    });
+
+    it("reveals energy usage to be high-usage", () => {
+      expect(thermostat.currentEnergyUsage()).toEqual("high-usage");
+    });
+
+    it("reduces temperature to maximum limit when power saving mode is turned on", () => {
+      thermostat.turnOnPowerSavingMode();
+      expect(thermostat.temperature()).toEqual(25);
+    });
   });
 
   describe("when power saving mode is on", () => {

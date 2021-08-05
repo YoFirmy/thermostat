@@ -16,7 +16,7 @@ class Thermostat {
   };
 
   down() {
-    if(this._isBelowMinimum()) this._temperature -= 1;
+    if(this._isAboveMinimum()) this._temperature -= 1;
   };
 
   turnOffPowerSavingMode() {
@@ -25,7 +25,7 @@ class Thermostat {
 
   turnOnPowerSavingMode() {
     this._powerSavingModeOn = true
-    if(this._temperature > this._MAXIMUM_TEMP_PSM_ON) {
+    if(this._isAbovePowerSaveMaximum) {
       this._temperature = this._MAXIMUM_TEMP_PSM_ON
     };
   };
@@ -34,19 +34,37 @@ class Thermostat {
     this._temperature = 20;
   };
 
-  _isPowerSavingModeOn() {
-    return this._powerSavingModeOn
+  currentEnergyUsage() {
+    if(this._temperature < 18) {
+      return "low-usage";
+    } else if(this._isBelowPowerSaveMaximum()) {
+      return "medium-usage";
+    } else {
+      return "high-usage";
+    };
   };
 
-  _isBelowMinimum() {
-    return this._temperature > this._MINIMUM_TEMPERATURE
+  _isPowerSavingModeOn() {
+    return this._powerSavingModeOn;
+  };
+
+  _isAboveMinimum() {
+    return this._temperature > this._MINIMUM_TEMPERATURE;
   };
 
   _isBelowMaximum() {
     if(this._isPowerSavingModeOn()) {
-      return this._temperature < this._MAXIMUM_TEMP_PSM_ON
+      return this._isBelowPowerSaveMaximum();
     } else {
-      return this._temperature < this._MAXIMUM_TEMP_PSM_OFF
+      return this._temperature < this._MAXIMUM_TEMP_PSM_OFF;
     };
+  };
+
+  _isAbovePowerSaveMaximum() {
+    return this._temperature > this._MAXIMUM_TEMP_PSM_ON;
+  };
+
+  _isBelowPowerSaveMaximum() {
+    return this._temperature < this._MAXIMUM_TEMP_PSM_ON;
   };
 };
