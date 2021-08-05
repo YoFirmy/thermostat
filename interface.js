@@ -3,10 +3,15 @@
 document.addEventListener("DOMContentLoaded", () => {
   const updateTemperature = () => {
     document.querySelector("#temperature").innerText = thermostat.temperature;
+    document.querySelector("#temperature").className = thermostat.currentEnergyUsage();
   }
   
   const updatePowerSaveModeStatus = () => {
-    document.querySelector("#power-saving-mode-status").innerText = thermostat.isPowerSavingModeOn ? "on" : "off"
+    if(thermostat.isPowerSavingModeOn) {
+      document.querySelector("#power-saving-mode-status").innerText = "on";
+    } else {
+      document.querySelector("#power-saving-mode-status").innerText = "off";
+    }
   }
 
   const thermostat = new Thermostat();
