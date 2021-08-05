@@ -37,6 +37,25 @@ describe("Thermostat", () => {
     expect(thermostat._isPowerSavingModeOn()).toEqual(false);
   });
 
+  it("Can have power saving mode turned on", () => {
+    thermostat.turnOffPowerSavingMode();
+    thermostat.turnOnPowerSavingMode();
+    expect(thermostat._isPowerSavingModeOn()).toEqual(true);
+  });
+
+  it("reduces temperature to maximum limit when power saving mode is turned on and it is above", () => {
+    thermostat.turnOffPowerSavingMode();
+    for(let i = 0; i < 6; i++) thermostat.up();
+    thermostat.turnOnPowerSavingMode();
+    expect(thermostat.temperature()).toEqual(25);
+  });
+
+  it("can reduce temperature to 20 with a reset function", () => {
+    for(let i = 0; i < 3; i++) thermostat.up();
+    thermostat.reset();
+    expect(thermostat.temperature()).toEqual(20)
+  });
+
   describe("when power saving mode is on", () => {
     beforeEach(() => {
       spyOn(thermostat, "_isPowerSavingModeOn").and.returnValue(true);
