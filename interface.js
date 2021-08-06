@@ -43,4 +43,26 @@ document.addEventListener("DOMContentLoaded", () => {
     thermostat.turnOffPowerSavingMode();
     updatePowerSaveModeStatus();
   })
+
+  fetch('http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=e175f3ed1065a9c33281bc2759e0871a&units=metric')
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      document.querySelector("#current-temperature").innerText = data.main.temp;
+    });
+
+  const selectElement = document.querySelector("#current-city");
+  selectElement.addEventListener('change', (event) => {
+    const city = event.target.value;
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=e175f3ed1065a9c33281bc2759e0871a&units=metric`
+
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        document.querySelector("#current-temperature").innerText = data.main.temp
+      })
+  })
 })
